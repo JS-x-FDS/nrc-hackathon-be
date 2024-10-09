@@ -46,6 +46,10 @@ public class SocketClient {
                 log.error(e.getMessage());
             }
         });
+
+        aiNamespace.addDisconnectListener((client) -> {
+            log.info("AI disconnected: {}", client.getSessionId().toString());
+        });
     }
 
     private void configFENamespace() {
@@ -65,6 +69,10 @@ public class SocketClient {
             } catch (Exception e) {
                 log.error(e.getMessage());
             }
+        });
+
+        feNamespace.addDisconnectListener((client) -> {
+            log.info("FE disconnected: {}", client.getSessionId().toString());
         });
     }
 }

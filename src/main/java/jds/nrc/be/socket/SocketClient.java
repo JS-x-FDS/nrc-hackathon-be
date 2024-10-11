@@ -38,9 +38,11 @@ public class SocketClient {
         aiNamespace.addEventListener(SocketEvents.ON_RECEIVE_AI_RESPONSE, String.class, (client, data, ackSender) -> {
             try {
                 log.info("AI -> BE: {}", data);
+
                 server.getNamespace("/fe")
                         .getBroadcastOperations()
                         .sendEvent(SocketEvents.EMIT_DATA_TO_FE, data);
+
                 log.info("BE -> FE: {}", data);
             } catch (Exception e) {
                 log.error(e.getMessage());
@@ -62,9 +64,11 @@ public class SocketClient {
         feNamespace.addEventListener(SocketEvents.ON_RECEIVE_FE_REQUEST, String.class, (client, data, ackSender) -> {
             try {
                 log.info("FE -> BE: {}", data);
+
                 server.getNamespace("/ai")
                         .getClient(AI_UUID)
                         .sendEvent(SocketEvents.EMIT_DATA_TO_AI, data);
+
                 log.info("BE -> AI: {}", data);
             } catch (Exception e) {
                 log.error(e.getMessage());

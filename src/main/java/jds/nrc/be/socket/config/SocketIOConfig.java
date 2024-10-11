@@ -24,8 +24,8 @@ public class SocketIOConfig {
         config.setHostname(host);
         config.setPort(port);
 //        config.setContext(context);
-        config.setTransports(Transport.WEBSOCKET, Transport.POLLING);
 
+        config.setTransports(Transport.WEBSOCKET, Transport.POLLING);
         config.setOrigin("*");
 
         return new SocketIOServer(config);

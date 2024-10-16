@@ -19,10 +19,19 @@ public class CsvFileController {
         return ResponseEntity.ok(System.currentTimeMillis());
     }
 
-    @PostMapping("/upload")
-    public ResponseEntity<String> send(@RequestBody MultipartFile file) {
+    @PostMapping("/uploadFile")
+    public ResponseEntity<?> sendFile(@RequestBody MultipartFile file) {
         try {
             return csvFileService.sendFile(file);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/prompt")
+    public ResponseEntity<?> sendPrompt(@RequestParam String message) {
+        try {
+            return csvFileService.sendPrompt(message);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
         }

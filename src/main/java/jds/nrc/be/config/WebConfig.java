@@ -17,9 +17,9 @@ public class WebConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 // You can customize your CORS configuration here
-                registry.addMapping("/api/v1/**") // Apply CORS to all endpoints
-                        .allowedOrigins(ALLOWED_ORIGINS)
-                        .allowCredentials(true)
+                registry.addMapping("/**") // Apply CORS to all endpoints
+                        .allowedOrigins("*")
+//                        .allowCredentials(true)
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*"); // Allow all headers
             }

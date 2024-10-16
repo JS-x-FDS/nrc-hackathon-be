@@ -21,17 +21,20 @@ public class CsvFileService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid file type.");
         }
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
-        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-        body.add("file", csvFile);
+            MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+            body.add("file", csvFile);
 
-        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+            HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
-        RestTemplate restTemplate = new RestTemplate();
-//        return restTemplate.postForEntity(AI_URL + "/upload", requestEntity, String.class);
-        return ResponseEntity.ok("This is sample answer from AI.");
+            RestTemplate restTemplate = new RestTemplate();
+            return restTemplate.postForEntity(AI_URL + "/upload", requestEntity, String.class);
+        } catch (Exception e) {
+            return ResponseEntity.ok("There have been some errors during the execution of the file.");
+        }
     }
 
     private boolean isCsvFile(MultipartFile file) {

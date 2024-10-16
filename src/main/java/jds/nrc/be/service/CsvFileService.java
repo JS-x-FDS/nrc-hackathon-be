@@ -30,7 +30,8 @@ public class CsvFileService {
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForEntity(AI_URL + "/upload", requestEntity, String.class);
+//        return restTemplate.postForEntity(AI_URL + "/upload", requestEntity, String.class);
+        return ResponseEntity.ok("This is sample answer from AI.");
     }
 
     private boolean isCsvFile(MultipartFile file) {

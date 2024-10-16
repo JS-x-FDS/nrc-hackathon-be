@@ -1,13 +1,13 @@
-package jds.nrc.be;
+package com.jds.transferFile;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class NrcHackathonBeApplicationTests {
+class TransferFileApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+	@Test
+	void contextLoads() {
+	}
 
 }

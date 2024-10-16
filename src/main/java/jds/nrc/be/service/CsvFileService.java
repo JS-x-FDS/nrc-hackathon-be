@@ -20,7 +20,9 @@ public class CsvFileService {
     // This method is used to send the file to App B
     public ResponseEntity<String> sendFile(String url, MultipartFile csvFile) {
         try {
-            // Set up headers
+            if (!isCsvFile(csvFile)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid file type.");
+            }
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
@@ -46,5 +48,20 @@ public class CsvFileService {
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error sending file to App B: " + e.getMessage());
         }
+    }
+
+    private boolean isCsvFile(MultipartFile file) {
+        // Check file extension
+        String fileName = file.getOriginalFilename();
+        if (fileName != null && !fileName.endsWith(".csv")) {
+            return false;
+        }
+
+        String mimeType = file.getContentType();
+        if (mimeType != null && !mimeType.equals("text/csv") && !mimeType.equals("application/vnd.ms-excel")) {
+            return false;
+        }
+
+        return true;
     }
 }

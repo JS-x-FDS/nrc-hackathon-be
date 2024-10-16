@@ -17,33 +17,12 @@ public class CsvFileController {
 
     // Endpoint to receive file from App A and forward it to App B
     @PostMapping("/upload")
-    public ResponseEntity<?> send(@RequestParam("file") MultipartFile file, @RequestParam("url") String url) {
+    public ResponseEntity<?> send(@RequestBody MultipartFile file, @RequestParam("url") String url) {
         try {
-            if (!isCsvFile(file)) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid file type.");
-            }
-            
             ResponseEntity<String> response = csvFileService.sendFile(url, file);
-
             return ResponseEntity.ok(response.getBody());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
         }
-    }
-
-    // Validate if the uploaded file is a CSV file
-    private boolean isCsvFile(MultipartFile file) {
-        // Check file extension
-        String fileName = file.getOriginalFilename();
-        if (fileName != null && !fileName.endsWith(".csv")) {
-            return false;
-        }
-
-        String mimeType = file.getContentType();
-        if (mimeType != null && !mimeType.equals("text/csv") && !mimeType.equals("application/vnd.ms-excel")) {
-            return false;
-        }
-
-        return true;
     }
 }

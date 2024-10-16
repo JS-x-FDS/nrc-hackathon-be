@@ -51,6 +51,6 @@ jobs:
             git checkout release
             git reset --hard origin/release
             mvn clean install -DskipTests
-
+            sudo systemctl stop nrc-hackathon-be
             sudo systemctl start nrc-hackathon-be
           EOF

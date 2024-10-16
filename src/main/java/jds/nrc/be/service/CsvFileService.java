@@ -33,7 +33,7 @@ public class CsvFileService {
             RestTemplate restTemplate = new RestTemplate();
             return restTemplate.postForEntity(AI_URL + "/upload", requestEntity, String.class);
         } catch (Exception e) {
-            return ResponseEntity.ok("There have been some errors during the execution of the file.");
+            return ResponseEntity.internalServerError().body("There have been some errors during the execution of the file.");
         }
     }
 

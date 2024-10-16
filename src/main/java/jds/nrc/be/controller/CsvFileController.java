@@ -20,10 +20,9 @@ public class CsvFileController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<Object> send(@RequestBody MultipartFile file) {
+    public ResponseEntity<String> send(@RequestBody MultipartFile file) {
         try {
-            ResponseEntity<String> response = csvFileService.sendFile(file);
-            return ResponseEntity.ok(response.getBody());
+            return csvFileService.sendFile(file);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
         }
